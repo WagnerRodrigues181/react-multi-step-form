@@ -5,6 +5,8 @@ import {
   BsFillEmojiFrownFill,
 } from "react-icons/bs";
 
+import "./ReviewForm.css";
+
 type ReviewForm = {
   data: {
     review: string;

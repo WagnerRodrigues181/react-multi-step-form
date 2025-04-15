@@ -27,6 +27,7 @@ const emojiData: emojiObject = {
   very_satisfied: <BsFillEmojiHeartEyesFill />,
 };
 
+import "./Thanks.css";
 import { ReactElement } from "react";
 
 const Thanks = ({ data }: ThanksProps) => {
