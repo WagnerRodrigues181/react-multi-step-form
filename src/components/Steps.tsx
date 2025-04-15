@@ -1,6 +1,8 @@
 import { AiOutlineUser, AiOutlineStar } from "react-icons/ai";
 import { FiSend } from "react-icons/fi";
 
+import "./Steps.css";
+
 type stepsProps = {
   currentStep: number;
 };

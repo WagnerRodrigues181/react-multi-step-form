@@ -9,6 +9,8 @@ import { FiSend } from "react-icons/fi";
 import { useState } from "react";
 import { useForm } from "./hooks/useForm";
 
+import "./App.css";
+
 type FormFields = {
   name: string;
   email: string;
