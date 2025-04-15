@@ -1,9 +1,13 @@
-import { useState } from "react";
 import UserForm from "./components/UserForm";
 import ReviewForm from "./components/ReviewForm";
+import Thanks from "./components/Thanks";
 import Steps from "./components/Steps";
 
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import { FiSend } from "react-icons/fi";
+
+import { useState } from "react";
+import { useForm } from "./hooks/useForm";
 
 type FormFields = {
   name: string;
@@ -21,24 +25,21 @@ const formTemplate: FormFields = {
 
 function App() {
   const [data, setData] = useState(formTemplate);
-  const [currentStep, setCurrentStep] = useState(0);
 
   const updateFieldHandler = (key: string, value: string) => {
-    setData((prev) => ({ ...prev, [key]: value }));
+    setData((prev) => {
+      return { ...prev, [key]: value };
+    });
   };
 
   const formComponents = [
     <UserForm data={data} updateFieldHandler={updateFieldHandler} />,
     <ReviewForm data={data} updateFieldHandler={updateFieldHandler} />,
+    <Thanks data={data} />,
   ];
 
-  const isLastStep = currentStep === formComponents.length - 1;
-
-  const changeStep = (step: number) => {
-    if (step >= 0 && step < formComponents.length) {
-      setCurrentStep(step);
-    }
-  };
+  const { currentStep, currentComponent, changeStep, isLastStep } =
+    useForm(formComponents);
 
   return (
     <div className="app">
@@ -51,24 +52,14 @@ function App() {
       </div>
       <div className="form-container">
         <Steps currentStep={currentStep} />
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            if (!isLastStep) {
-              changeStep(currentStep + 1);
-            }
-          }}
-        >
-          <div className="inputs-container">{formComponents[currentStep]}</div>
+        <form onSubmit={(event) => changeStep(currentStep + 1, event)}>
+          <div className="inputs-container">{currentComponent}</div>
           <div className="actions">
-            <button
-              type="button"
-              onClick={() => changeStep(currentStep - 1)}
-              disabled={currentStep === 0}
-            >
+            <button type="button" onClick={() => changeStep(currentStep - 1)}>
               <GrFormPrevious />
               <span>Voltar</span>
             </button>
+            {/*Se não for o último passo, exibe o botão de avançar. Se for, exibe o de enviar.*/}
             {!isLastStep ? (
               <button type="submit">
                 <span>Avançar</span>
@@ -77,7 +68,7 @@ function App() {
             ) : (
               <button type="submit">
                 <span>Enviar</span>
-                <GrFormNext />
+                <FiSend />
               </button>
             )}
           </div>
