@@ -44,7 +44,7 @@ Um formulário multi-etapas (wizard form) desenvolvido com React, TypeScript e V
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/seu-usuario/react-multi-step-form.git
+    git clone https://github.com/WagnerRodrigues181/react-multi-step-form.git
     ```
 
 2. Instale as dependências:
